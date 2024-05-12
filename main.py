@@ -58,6 +58,8 @@ def sort_array():
     animate_sort(bubble_steps, bubble_canvas)
     animate_sort(selection_steps, selection_canvas)
 
+    compare_sorts(len(bubble_steps), len(selection_steps))
+
 def display_steps(text_widget, steps):
     text_widget.config(state=tk.NORMAL)
     text_widget.delete(1.0, tk.END)
@@ -70,6 +72,9 @@ def toggle_steps(text_widget):
         text_widget.pack()
     else:
         text_widget.pack_forget()
+
+def compare_sorts(bubble_steps, selection_steps):
+    messagebox.showinfo("Comparison", f"Bubble Sort took {bubble_steps} steps, Selection Sort took {selection_steps} steps")
 
 # Tkinter GUI setup
 root = tk.Tk()
