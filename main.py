@@ -1,6 +1,6 @@
 import tkinter as tk
-from tkinter import messagebox
 import time
+from tkinter import messagebox
 
 def draw_array(canvas, arr, highlighted_index=None):
     canvas.delete("all")
@@ -59,12 +59,13 @@ def sort_array():
     animate_sort(selection_steps, selection_canvas)
 
     compare_sorts(len(bubble_steps), len(selection_steps))
+    visualize_comparison(len(bubble_steps), len(selection_steps))
 
 def display_steps(text_widget, steps):
     text_widget.config(state=tk.NORMAL)
     text_widget.delete(1.0, tk.END)
-    for step in steps:
-        text_widget.insert(tk.END, str(step) + "\n")
+    for i, step in enumerate(steps):
+        text_widget.insert(tk.END, f"Step {i+1}: {step}\n")
     text_widget.config(state=tk.DISABLED)
 
 def toggle_steps(text_widget):
@@ -75,6 +76,10 @@ def toggle_steps(text_widget):
 
 def compare_sorts(bubble_steps, selection_steps):
     messagebox.showinfo("Comparison", f"Bubble Sort took {bubble_steps} steps, Selection Sort took {selection_steps} steps")
+
+def visualize_comparison(bubble_steps, selection_steps):
+    bubble_canvas.create_rectangle(10, 10, bubble_steps * 10, 50, fill="blue")
+    selection_canvas.create_rectangle(10, 10, selection_steps * 10, 50, fill="red")
 
 # Tkinter GUI setup
 root = tk.Tk()
@@ -95,16 +100,16 @@ bubble_frame.pack(side=tk.LEFT, padx=10)
 selection_frame = tk.Frame(frame, bd=2, relief=tk.RAISED)
 selection_frame.pack(side=tk.RIGHT, padx=10)
 
-bubble_canvas = tk.Canvas(bubble_frame, width=400, height=200, bg="black")
+bubble_canvas = tk.Canvas(bubble_frame, width=800, height=100, bg="white")
 bubble_canvas.pack()
 
-bubble_steps_text = tk.Text(bubble_frame, height=10, width=20, state=tk.DISABLED)
+bubble_steps_text = tk.Text(bubble_frame, height=10, width=40, state=tk.DISABLED)
 bubble_steps_text.pack()
 
-selection_canvas = tk.Canvas(selection_frame, width=400, height=200, bg="black")
+selection_canvas = tk.Canvas(selection_frame, width=800, height=100, bg="white")
 selection_canvas.pack()
 
-selection_steps_text = tk.Text(selection_frame, height=10, width=20, state=tk.DISABLED)
+selection_steps_text = tk.Text(selection_frame, height=10, width=40, state=tk.DISABLED)
 selection_steps_text.pack()
 
 show_steps_var = tk.IntVar()
